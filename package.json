@@ -1,0 +1,33 @@
+{
+  "name": "mern-stack-authentication-boilerplate",
+  "version": "1.0.0",
+  "description": "Ultimate MERN Stack Authentication Boilerplate for production use",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rtewari056/mern-stack-authentication-boilerplate.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rtewari056/mern-stack-authentication-boilerplate/issues"
+  },
+  "homepage": "https://github.com/rtewari056/mern-stack-authentication-boilerplate#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.7.2",
+    "nodemailer": "^6.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
