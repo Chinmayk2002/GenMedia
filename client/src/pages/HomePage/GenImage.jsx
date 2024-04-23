@@ -1,5 +1,8 @@
 import { useState } from "react";
 import ErrorMessage from "./ErrorMessage";
+import "./HomePage.css";
+
+
 
 const GenImage = () => {
     const [prompt, setPrompt] = useState("");
@@ -56,23 +59,26 @@ const GenImage = () => {
         <div className="columns is-vcentered">
             <div className="column">
                 <form className="box" onSubmit={handleSubmit}>
-                    <h1 className="title has-text-centered is-4">ImageGen</h1>
+                    <h1 className="title has-text-centered is-4 text-5xl heading-spacing image-gen-column">ImageGen</h1>
+
                     <div className="field">
                         <label className="label">Prompt</label>
                         <div className="control">
                             <input 
                                 type="text" 
-                                placeholder="Enter your prompt to generate the image" 
+                                placeholder="Enter your prompt to generate the image..." 
                                 value={prompt} 
                                 onChange={(e) =>setPrompt(e.target.value)}
-                                className="textarea"
+                                className="textarea w-full input-text "
                                 required
                             /> 
                         </div>
                     </div>         
                         <ErrorMessage message={errorMessage}/>
                     <br /> 
-                    <button className="button is-primary" type="submit">Generate Image</button>
+                    <div className="container1">
+                        <button className="generate-button" type="submit">Generate Image</button>
+                    </div>
                 </form>
             </div>
             <div className="column">

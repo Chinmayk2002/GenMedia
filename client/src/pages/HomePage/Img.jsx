@@ -24,7 +24,8 @@ function Img() {
 
   return (
     <div>
-      <button onClick={fetchData}>Fetch Data</button>
+      <button className="mb-4 bg-green-500 hover:bg-green-400 transition-colors duration-100 text-white px-4 py-3 rounded-lg font-semibold" onClick={fetchData}>Fetch Data</button>
+
       {response && <pre>{JSON.stringify(response, null, 2)}</pre>}
       {error && <p>Error: {error}</p>}
     </div>

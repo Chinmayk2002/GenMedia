@@ -64,12 +64,13 @@
 
 .flex-container {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   gap: 20px;
 }
 
 .duration-container {
   text-align: center;
+  width: 100%;
 }
 
 .progress-bar {
@@ -161,4 +162,14 @@
   .share-button {
     padding: 6px 12px;
   }
+}
+
+
+.heading-spacing {
+  margin-bottom: 1.5rem; /* Adjust the value as needed */
+}
+
+.image-gen-column {
+  width: 60%;
+  min-height: 50px; /* Adjust this value as needed */
 }

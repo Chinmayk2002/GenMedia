@@ -68,7 +68,7 @@ const HomePage = () => {
     }
   };
 
-  const [textInput, setTextInput] = useState(EXAMPLES[0]);
+  const [textInput, setTextInput] = useState();
   const [progress, setProgress] = useState(0);
   const [loadProgress, setLoadProgress] = useState({});
   const [statusText, setStatusText] = useState("Loading model (656MB)...");
@@ -206,11 +206,11 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="container1">
+      {/* <div className="container1">
         <button className="generate-button" onClick={generateMusic}>
           Generate Music
         </button>
-      </div>
+      </div> */}
 
       <div className="progress-bar">
         <div
@@ -219,6 +219,13 @@ const HomePage = () => {
         ></div>
       </div>
       <p>{statusText}</p>
+      <div className="container1">
+        <button className="generate-button" onClick={generateMusic}>
+          Generate Music
+        </button>
+      </div>
+
+      
 
       <div className="audio-player">
         <audio ref={audioRef} controls />
