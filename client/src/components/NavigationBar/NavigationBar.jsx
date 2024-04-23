@@ -30,6 +30,7 @@ const NavigationBar = () => {
   return (
     <Navbar collapseOnSelect expand="md" variant="dark" id="nav">
       <Container>
+
         <Navbar.Brand as={Link} to="/" className="align-left">
           {/* Use &nbsp; for spacing before the text */}
            <img
@@ -41,6 +42,7 @@ const NavigationBar = () => {
           />
           &nbsp;GenMedia
         </Navbar.Brand>
+        
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
@@ -89,6 +91,14 @@ const NavigationBar = () => {
             </Nav.Item>
           )}
         </Navbar.Collapse>
+        {auth ? (<button
+                className="nav-button me-2"
+                onClick={logoutHandler}
+              >
+                Log Out
+              </button>):(<div></div>)
+              }
+              
       </Container>
     </Navbar>
   );

@@ -159,7 +159,7 @@ const HomePage = () => {
     setStatusText("Done!");
   };
 
-  return (
+  return (<div className="flex flex-wrap justify-between mx-auto max-w-4xl">
     <div className="container mx-auto p-8">
       <h1 className="text-5xl font-bold mb-2">MusicGen</h1>
 
@@ -248,6 +248,7 @@ const HomePage = () => {
 
       {/* <Img /> */}
       <GenImage />
+    </div>
     </div>
   );
 };
