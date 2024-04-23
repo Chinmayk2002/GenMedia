@@ -1,0 +1,164 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Updated .text-5xl styles */
+.text-5xl {
+  font-size: 2.5rem; /* Reduce the font size */
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #2ebf91; /* Set desired text color */
+  background: linear-gradient(to right, #2ebf91, #8360c3); /* Apply gradient background */
+  -webkit-background-clip: text; /* Clip text to background */
+  -webkit-text-fill-color: transparent; /* Hide text fill */
+}
+
+.input-text {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+/* Updated .input-text styles */
+.input-text {
+  width: 100%;
+  padding: 16px; /* Increase padding for better height */
+  height: 96px; /* Set desired height */
+  font-size: 16px; /* Set desired font size */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-sizing: border-box; /* Ensure padding is included in width/height */
+}
+
+
+.example-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.example-buttons button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.example-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.duration-container {
+  text-align: center;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 5px;
+  gap: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-bar-inner {
+  height: 100%;
+  background-color: #007bff;
+}
+
+.audio-player {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.audio-player audio {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Center the button */
+.container1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+ /* Adjust the height of the container to your preference */
+}
+
+.generate-button {
+  background-color: #28a745;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.generate-button:hover {
+  background-color: #218838;
+}
+
+/* Add margin below progress bar */
+.progress-bar + p {
+  margin-bottom: 20px;
+}
+
+
+.share-button {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.share-button:hover {
+  background-color: #c82333;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
+
+  .text-5xl {
+    font-size: 2.5rem;
+  }
+
+  .example-buttons button {
+    padding: 6px 10px;
+  }
+
+  .generate-button {
+    padding: 10px 16px;
+  }
+
+  .share-button {
+    padding: 6px 12px;
+  }
+}

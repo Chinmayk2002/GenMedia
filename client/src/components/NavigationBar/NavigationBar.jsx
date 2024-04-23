@@ -30,14 +30,8 @@ const NavigationBar = () => {
   return (
     <Navbar collapseOnSelect expand="md" variant="dark" id="nav">
       <Container>
-        <Navbar.Brand as={Link} to="/">
-          {/* <img
-            alt="Advanced Node Authentication Logo"
-            src={IMAGES.logo}
-            width="30"
-            height="30"
-            className="d-inline-block align-top"
-          /> */}
+        <Navbar.Brand as={Link} to="/" className="align-left">
+          {/* Use &nbsp; for spacing before the text */}
           &nbsp;GenMedia
         </Navbar.Brand>
 

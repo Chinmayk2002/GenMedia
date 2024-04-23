@@ -1,4 +1,4 @@
-/* Navigation Bar Background Color */
+/* Base Navigation Bar Styles */
 #nav {
   background: #8360c3;
   /* fallback for old browsers */
@@ -6,62 +6,81 @@
   /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #2ebf91, #8360c3);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  border-radius: 10px;
+  padding: 10px; /* Add padding for better spacing */
+  height: 50px; /* Set initial height for navigation bar */
 }
+/* Custom CSS */
+.align-left {
+  display: flex;
+  align-items: center; /* Center vertically within the Navbar.Brand container */
+}
+
+.align-left > * {
+  margin-right: 0.5rem; /* Adjust spacing between content and left edge */
+}
+
+@media (max-width: 768px) {
+  /* Responsive adjustment for smaller screens */
+  .align-left {
+    justify-content: flex-start; /* Align content to the start (left) */
+  }
+}
+
 
 /* Navigation Bar Button CSS */
 .nav-button {
   appearance: none;
-  background-color: #FAFBFC;
+  background-color: #fafbfc;
   border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 6px;
-  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
-  box-sizing: border-box;
-  color: #24292E;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
+    rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  color: #24292e;
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
   list-style: none;
-  padding: 6px 16px;
-  position: relative;
+  padding: 8px 16px; /* Adjust padding for better button size */
+  margin-right: 10px; /* Add spacing between buttons */
   transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
-  white-space: nowrap;
-  word-wrap: break-word;
 }
 
 .nav-button:hover {
-  background-color: #F3F4F6;
+  background-color: #f3f4f6;
   text-decoration: none;
-  transition-duration: 0.1s;
 }
 
-.nav-button:disabled {
-  background-color: #FAFBFC;
-  border-color: rgba(27, 31, 35, 0.15);
-  color: #959DA5;
-  cursor: default;
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  /* Styles for smaller screens (e.g., tablets) */
+  #nav {
+    padding: 8px; /* Reduce padding for smaller screens */
+    height: 40px; /* Reduce height for smaller screens */
+  }
+
+  .nav-button {
+    font-size: 12px; /* Decrease font size for smaller buttons */
+    padding: 6px 12px; /* Adjust button padding for smaller buttons */
+    margin-right: 8px; /* Reduce spacing between buttons */
+  }
 }
 
-.nav-button:active {
-  background-color: #EDEFF2;
-  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
-  transition: none 0s;
-}
+@media (max-width: 576px) {
+  /* Styles for even smaller screens (e.g., mobile devices) */
+  #nav {
+    padding: 6px; /* Further reduce padding for smallest screens */
+    height: 30px; /* Further reduce height for smallest screens */
+  }
 
-.nav-button:focus {
-  outline: 1px transparent;
-}
-
-.nav-button:before {
-  display: none;
-}
-
-.nav-button:-webkit-details-marker {
-  display: none;
+  .nav-button {
+    font-size: 11px; /* Further decrease font size for smallest buttons */
+    padding: 5px 10px; /* Further adjust button padding for smallest buttons */
+    margin-right: 6px; /* Further reduce spacing between buttons */
+  }
 }

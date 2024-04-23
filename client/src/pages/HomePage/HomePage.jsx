@@ -1,27 +1,28 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import {  useRef } from 'react';
-import { AutoTokenizer, MusicgenForConditionalGeneration, BaseStreamer } from '@xenova/transformers';
-import { encodeWAV, share } from './utils.js';
-import  Img  from "./Img.jsx";
+import {
+  AutoTokenizer,
+  MusicgenForConditionalGeneration,
+  BaseStreamer,
+} from "@xenova/transformers";
+import { encodeWAV, share } from "./utils.js";
+import Img from "./Img.jsx";
+import GenImage from "./GenImage.jsx";
 import { AuthState } from "../../context/AuthProvider";
 import { Notify } from "../../utils";
-import GenImage from "./GenImage.jsx"
-const MODEL_ID = 'Xenova/musicgen-small';
+import "./HomePage.css"; // Import CSS file for styling
 
-// Adapted from https://huggingface.co/spaces/facebook/MusicGen
+const MODEL_ID = "Xenova/musicgen-small";
 const EXAMPLES = [
-  '80s pop track with bassy drums and synth',
-  '90s rock song with loud guitars and heavy drums',
-  'a light and cheerly EDM track, with syncopated drums, aery pads, and strong emotions bpm: 130',
-  'A cheerful country song with acoustic guitars',
-  'lofi slow bpm electro chill with organic samples',
+  "80s pop track with bassy drums and synth",
+  "90s rock song with loud guitars and heavy drums",
+  "a light and cheerly EDM track, with syncopated drums, aery pads, and strong emotions bpm: 130",
+  "A cheerful country song with acoustic guitars",
+  "lofi slow bpm electro chill with organic samples",
 ];
 
-// Enable sharing if running on Hugging Face Spaces
-const SHARING_ENABLED = window.location.host.endsWith('.hf.space');
+const SHARING_ENABLED = window.location.host.endsWith(".hf.space");
 
-// Streamer to update progress
 class CallbackStreamer extends BaseStreamer {
   constructor(callback_fn) {
     super();
@@ -39,11 +40,10 @@ class CallbackStreamer extends BaseStreamer {
 
 const HomePage = () => {
   const [privateMessage, setPrivateMessage] = useState("");
-
   const navigate = useNavigate();
   const { auth } = AuthState();
 
-  const fetchPrivateDate = async () => {
+  const fetchPrivateData = async () => {
     try {
       const response = await fetch("/api/private", {
         method: "GET",
@@ -59,7 +59,7 @@ const HomePage = () => {
         return Notify(data.data, "success");
       } else {
         navigate("/login");
-        return Notify("You are not authorized please login", "error");
+        return Notify("You are not authorized, please login", "error");
       }
     } catch (error) {
       localStorage.removeItem("auth");
@@ -71,41 +71,40 @@ const HomePage = () => {
   const [textInput, setTextInput] = useState(EXAMPLES[0]);
   const [progress, setProgress] = useState(0);
   const [loadProgress, setLoadProgress] = useState({});
-  const [statusText, setStatusText] = useState('Loading model (656MB)...');
+  const [statusText, setStatusText] = useState("Loading model (656MB)...");
   const [result, setResult] = useState(null);
   const audioRef = useRef(null);
 
-  // Model and tokenizer references
   const modelPromise = useRef(null);
   const tokenizerPromise = useRef(null);
 
-  // Generation parameters
-  const [guidance_scale, setGuidanceScale] = useState(3);
+  const [guidanceScale, setGuidanceScale] = useState(3);
   const [temperature, setTemperature] = useState(1);
   const [duration, setDuration] = useState(10);
 
-  // Load model and tokenizer on first render
   useEffect(() => {
-    modelPromise.current ??= MusicgenForConditionalGeneration.from_pretrained(MODEL_ID, {
-      progress_callback: (data) => {
-        if (data.status !== 'progress') return;
-        setLoadProgress(prev => ({ ...prev, [data.file]: data }))
-      },
-      dtype: {
-        text_encoder: 'q8',
-        decoder_model_merged: 'q8',
-        encodec_decode: 'fp32',
-      },
-      device: 'wasm',
-    });
+    modelPromise.current ??= MusicgenForConditionalGeneration.from_pretrained(
+      MODEL_ID,
+      {
+        progress_callback: (data) => {
+          if (data.status !== "progress") return;
+          setLoadProgress((prev) => ({ ...prev, [data.file]: data }));
+        },
+        dtype: {
+          text_encoder: "q8",
+          decoder_model_merged: "q8",
+          encodec_decode: "fp32",
+        },
+        device: "wasm",
+      }
+    );
 
     tokenizerPromise.current ??= AutoTokenizer.from_pretrained(MODEL_ID);
   }, []);
 
-  // Update progress bar based on load progress
   useEffect(() => {
     const items = Object.values(loadProgress);
-    if (items.length !== 5) return; // 5 files to load
+    if (items.length !== 5) return;
     let loaded = 0;
     let total = 0;
     for (const data of Object.values(loadProgress)) {
@@ -114,134 +113,136 @@ const HomePage = () => {
     }
     const progress = loaded / total;
     setProgress(progress);
-    setStatusText(progress === 1
-      ? 'Ready!'
-      : `Loading model (${(progress * 100).toFixed()}% of 656MB)...`
+    setStatusText(
+      progress === 1
+        ? "Ready!"
+        : `Loading model (${(progress * 100).toFixed()}% of 656MB)...`
     );
   }, [loadProgress]);
 
-  // Function to handle generating music
   const generateMusic = async () => {
-    // Reset audio player and result
-    audioRef.current.src = '';
+    audioRef.current.src = "";
     setResult(null);
 
-    // Get model and tokenizer
     const tokenizer = await tokenizerPromise.current;
     const model = await modelPromise.current;
 
-    // Get number of tokens to match user-specified duration (more intuitive for user)
-    // 503 tokens -> 10 seconds generated => ~50 tokens per second
-    // https://huggingface.co/docs/transformers/model_doc/musicgen#generation
-    const max_length = Math.min(
+    const maxLength = Math.min(
       Math.max(Math.floor(duration * 50), 1) + 4,
-      model.generation_config.max_length ?? 1500,
+      model.generation_config.max_length ?? 1500
     );
 
-    // Create a streamer to update progress
     const streamer = new CallbackStreamer((value) => {
-      const percent = value === undefined ? 1 : value[0].length / max_length;
+      const percent = value === undefined ? 1 : value[0].length / maxLength;
       setStatusText(`Generating (${(percent * 100).toFixed()}%)...`);
       setProgress(percent);
     });
 
-    // Tokenize input text
     const inputs = tokenizer(textInput);
 
-    // Generate music
-    const audio_values = await model.generate({
-      // Inputs
+    const audioValues = await model.generate({
       ...inputs,
-
-      // Generation parameters
-      max_length,
-      guidance_scale,
-      temperature,
-
-      // Outputs
-      streamer,
+      max_length: maxLength,
+      guidance_scale: guidanceScale,
+      temperature: temperature,
+      streamer: streamer,
     });
 
-    setStatusText('Encoding audio...');
+    setStatusText("Encoding audio...");
 
-    // Encode audio values to WAV
-    const sampling_rate = model.config.audio_encoder.sampling_rate;
-    const wav = encodeWAV(audio_values.data, sampling_rate);
-    const blob = new Blob([wav], { type: 'audio/wav' });
+    const samplingRate = model.config.audio_encoder.sampling_rate;
+    const wav = encodeWAV(audioValues.data, samplingRate);
+    const blob = new Blob([wav], { type: "audio/wav" });
     setResult(blob);
 
     audioRef.current.src = URL.createObjectURL(blob);
-    setStatusText('Done!');
+    setStatusText("Done!");
   };
 
+  return (
+    <div className="container mx-auto p-8">
+      <h1 className="text-5xl font-bold mb-2">MusicGen</h1>
 
-  return (<div className="container mx-auto p-8">
-  <h1 className="text-5xl font-bold mb-2">MusicGen</h1>
-  
+      <input
+        type="text"
+        placeholder="Describe the music to generate..."
+        value={textInput}
+        onChange={(e) => setTextInput(e.target.value)}
+        className="input-text"
+      />
 
-  {/* Text input for user */}
-  <input
-    type="text"
-    placeholder="Describe the music to generate..."
-    value={textInput}
-    onChange={(e) => setTextInput(e.target.value)}
-    className="border border-gray-300 p-2 mb-4 w-full rounded"
-  />
+      <div className="flex flex-wrap justify-center gap-4">
+        {EXAMPLES.map((example, i) => (
+          <div
+            key={i}
+            className="bg-gradient-to-r from-blue-400 to-blue-700 text-white rounded-md p-4 w-64 transform hover:-translate-y-2 transition-transform duration-300"
+          >
+            <p className="text-xl font-bold">{example}</p>
+            <button
+              onClick={() => setTextInput(example)}
+              className="bg-white text-blue-700 font-semibold px-4 py-2 mt-4 rounded-md hover:bg-blue-100 transition duration-300"
+            >
+              Use This!
+            </button>
+          </div>
+        ))}
+      </div>
 
-  {/* Example buttons */}
-  <div className="mb-4 flex gap-2 justify-center text-sm">
-  <h4 className="text-2xl font-semibold mb-4">Suggestions :</h4>
-    {EXAMPLES.map((example, i) => (
-      <button key={i} className="bg-blue-500 hover:bg-blue-400 transition-colors duration-100 text-white px-2 py-2 rounded" onClick={(e) => setTextInput(e.target.innerText)}>{example}</button>
-    ))}
-  </div>
+      <div className="flex-container">
+        <div className="duration-container mt-8">
+          <label className="block mb-2">Duration</label>
+          <input
+            type="range"
+            min={1}
+            max={30}
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+            className="w-full"
+            style={{ height: "10px" }} // Optional inline style for height
+          />
+          <p className="text-center">{`${duration} second${
+            duration > 1 ? "s" : ""
+          }`}</p>
+        </div>
+      </div>
 
-  {/* Generation parameters */}
-  <div className="flex mb-4 justify-center gap-2">
-    {/* Duration */}
-    <div>
-      <label className="block text-sm font-semibold mb-1">Duration</label>
-      <input type="range" min={1} max={30} value={duration} onChange={(e) => setDuration(e.target.value)} />
-      <p className="text-sm text-center">{`${duration} second${duration > 1 ? 's' : ''}`}</p>
+      <div className="container1">
+        <button className="generate-button" onClick={generateMusic}>
+          Generate Music
+        </button>
+      </div>
+
+      <div className="progress-bar">
+        <div
+          className="progress-bar-inner"
+          style={{ width: `${100 * progress}%` }}
+        ></div>
+      </div>
+      <p>{statusText}</p>
+
+      <div className="audio-player">
+        <audio ref={audioRef} controls />
+        {SHARING_ENABLED && result && (
+          <button
+            className="share-button"
+            onClick={async () => {
+              await share(result, {
+                prompt: textInput,
+                duration,
+                guidanceScale,
+                temperature,
+              });
+            }}
+          >
+            Share
+          </button>
+        )}
+      </div>
+
+      <Img />
+      <GenImage />
     </div>
-    
-  </div>
-
-  {/* Button to generate music */}
-  <button className="mb-4 bg-green-500 hover:bg-green-400 transition-colors duration-100 text-white px-4 py-3 rounded-lg font-semibold" onClick={generateMusic}>Generate Music</button>
-
-  {/* Progress bar */}
-  <div className="mb-4">
-    <div className="bg-gray-200 h-4 w-full rounded-full">
-      <div className="bg-blue-500 h-4 rounded-full" style={{ width: `${100 * progress}%` }}></div>
-    </div>
-    <p className="text-sm text-center mt-1">{statusText}</p>
-  </div>
-
-  {/* Audio player */}
-  {<div className="flex justify-center flex-col items-center">
-    <audio ref={audioRef} controls type="audio/wav" />
-    {SHARING_ENABLED && result &&
-      <button
-        className="bg-red-500 hover:bg-red-400 transition-colors duration-100 text-white px-2 py-1 my-2 rounded-lg text-sm"
-        onClick={async (e) => {
-          e.target.disabled = true;
-          e.target.innerText = 'Uploading...';
-          await share(result, {
-            prompt: textInput,
-            duration,
-            guidance_scale,
-            temperature,
-          });
-          e.target.disabled = false;
-          e.target.innerText = 'Share';
-        }
-        }>Share</button>
-    }
-  </div>}
-  {/* <Img></Img> */}
-  <GenImage></GenImage>
-</div>);
+  );
 };
 
 export default HomePage;
