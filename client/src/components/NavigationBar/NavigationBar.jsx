@@ -32,6 +32,13 @@ const NavigationBar = () => {
       <Container>
         <Navbar.Brand as={Link} to="/" className="align-left">
           {/* Use &nbsp; for spacing before the text */}
+           <img
+            alt="Advanced Node Authentication Logo"
+            src={IMAGES.logo}
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />
           &nbsp;GenMedia
         </Navbar.Brand>
 
