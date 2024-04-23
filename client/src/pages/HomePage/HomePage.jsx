@@ -246,7 +246,7 @@ const HomePage = () => {
         )}
       </div>
 
-      <Img />
+      {/* <Img /> */}
       <GenImage />
     </div>
   );
