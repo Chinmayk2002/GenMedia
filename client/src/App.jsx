@@ -15,6 +15,7 @@ import {
   PasswordResetPage,
 } from "./pages";
 import { NavigationBar } from "./components";
+import Footer from "./components/Footer/footer";
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
 
       {/* Remember to render the ToastContainer once in your application tree. Rendering it in the application root would be the best bet */}
       <ToastContainer />
+      <Footer/>
     </>
   );
 };

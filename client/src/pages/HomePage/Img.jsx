@@ -8,7 +8,7 @@ function Img() {
   const fetchData = async () => {
      try {
       const data = {
-        prompt: "horse",
+        prompt: "dog",
       };
 
       const response = await fetch('http://localhost:3001/api/forwardRequest', {
@@ -29,9 +29,10 @@ function Img() {
 
   return (
     <div>
-      <button className="mb-4 bg-green-500 hover:bg-green-400 transition-colors duration-100 text-white px-4 py-3 rounded-lg font-semibold" onClick={fetchData}>Fetch Data</button>
-
-      {response && <pre>{JSON.stringify(response, null, 2)}</pre>}
+      <button onClick={fetchData}>Fetch Data</button>
+      {/* {response && <pre>{JSON.stringify(response, null, 2)}</pre>} */}
+      {/* {imageURL && <img src={imageURL} alt="Generated Image" />} */}
+      {imageURL &&  <img src={`data:image/jpeg;base64,${imageURL}`} alt="Your Image" />}
       {error && <p>Error: {error}</p>}
     </div>
   );

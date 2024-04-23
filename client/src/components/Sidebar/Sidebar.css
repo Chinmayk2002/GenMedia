@@ -1,0 +1,29 @@
+.sidebar {
+    
+    position: fixed;
+    top: 20;
+    left: 0;
+    height: 15vh;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.20); /* Transparent background */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    z-index: 1000; /* Ensure it's on top of other content */
+    
+  }
+  
+  .checkbox {
+    margin-bottom: 10px;
+  }
+  
+  .checkbox input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .checkbox label {
+    color: white;
+  }
+  
