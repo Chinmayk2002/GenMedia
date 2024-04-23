@@ -30,8 +30,8 @@ function Img() {
   return (
     <div>
       <button onClick={fetchData}>Fetch Data</button>
-      {response && <pre>{JSON.stringify(response, null, 2)}</pre>}
-      {imageURL && <img src={imageURL} alt="Generated Image" />}
+      {/* {response && <pre>{JSON.stringify(response, null, 2)}</pre>} */}
+      {imageURL &&  <img src={`data:image/jpeg;base64,${imageURL}`} alt="Your Image" />}
       {error && <p>Error: {error}</p>}
     </div>
   );
