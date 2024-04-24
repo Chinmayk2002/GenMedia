@@ -352,14 +352,9 @@ const HomePage = () => {
 
         {/* </motion.div> */}
       </div>
-<<<<<<< HEAD
       {selectedOptions.image ? (
         <div className="container mx-auto p-8">
           <div className="columns is-vcentered">
-=======
-      {(selectedOptions.image && selectedOccasion=="Custom")?(<div className="container mx-auto p-8">
-        <div className="columns is-vcentered">
->>>>>>> 58f6fd5a5d443a7465cac71a37f251bd1ce3dd8e
             <div className="column">
               <h1 className="title has-text-centered is-4 text-5xl heading-spacing image-gen-column">
                 ImageGen
@@ -410,36 +405,6 @@ const HomePage = () => {
                 <></>
               )}
             </div>
-<<<<<<< HEAD
-=======
-        </div>
-        </div>):(<div></div>)}
-      {(selectedOptions.audio && selectedOccasion=="Custom")?(<div className="flex flex-wrap justify-between mx-auto max-w-4xl">
-    <div className="container mx-auto p-8">
-      <h1 className="text-5xl font-bold mb-2">MusicGen</h1>
-
-      <input
-        type="text"
-        placeholder="Describe the music to generate..."
-        value={textInput}
-        onChange={(e) => setTextInput(e.target.value)}
-        className="input-text"
-      />
-
-      <div className="flex flex-wrap justify-center gap-4">
-        {EXAMPLES.map((example, i) => (
-          <div
-            key={i}
-            className="bg-gradient-to-r from-blue-400 to-blue-700 text-white rounded-md p-4 w-64 transform hover:-translate-y-2 transition-transform duration-300"
-          >
-            <p className="text-xl font-bold">{example}</p>
-            <button
-              onClick={() => setTextInput(example)}
-              className="bg-white text-blue-700 font-semibold px-4 py-2 mt-4 rounded-md hover:bg-blue-100 transition duration-300"
-            >
-              Use This!
-            </button>
->>>>>>> 58f6fd5a5d443a7465cac71a37f251bd1ce3dd8e
           </div>
         </div>
       ) : (
@@ -532,21 +497,6 @@ const HomePage = () => {
         <h1 className="text-5xl font-bold mb-2">Video</h1>
       </div>
     </div>
-<<<<<<< HEAD
-=======
-    </div>):(<div></div>)}
-    {(selectedOptions.video && selectedOccasion=="Custom")?(<div className="container mx-auto p-8">
-      <h1 className="text-5xl font-bold mb-2">Video</h1>
-    </div>):(<div></div>)}
-    {(selectedOccasion=="birthday")?(
-    <div className="container1">
-      
-        <button className="generate-button" onClick={handleMultiTriggers}>
-          Generate
-        </button>
-      </div>):(<div></div>)}
-      </div>
->>>>>>> 58f6fd5a5d443a7465cac71a37f251bd1ce3dd8e
   );
 
 };
