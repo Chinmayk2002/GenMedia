@@ -42,7 +42,7 @@ const App = () => {
 
       {/* Remember to render the ToastContainer once in your application tree. Rendering it in the application root would be the best bet */}
       <ToastContainer />
-      <Footer/>
+      {/* <Footer/> */}
     </>
   );
 };
