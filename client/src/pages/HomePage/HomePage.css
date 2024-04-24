@@ -1,3 +1,4 @@
+/* Basic styles remain unchanged */
 .employee-container {
   display: flex;
   flex-direction: column;
@@ -6,12 +7,26 @@
   min-height: 100vh;
   padding: 20px;
   background-color: #f4f4f4;
+  animation: fadeInUp 0.5s ease-out; /* Apply fade-in animation */
 }
 
+/* Animation keyframes for fadeInUp */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* Start slightly below and transparent */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Move to original position and fully visible */
+  }
+}
+
+/* Other styles remain unchanged */
 .employee-section,
 .options-section {
   width: 100%;
-  max-width: 600px; /* Adjust as needed */
+  max-width: 600px;
   margin-bottom: 20px;
 }
 
@@ -20,8 +35,9 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 10px;
-  text-align: left; /* Align heading to the left */
-  color: #2ebf91; /* Set the color to #2ebf91 */
+  text-align: left;
+  color: #2ebf91;
+  transition: color 0.3s ease; /* Smooth transition for text color */
 }
 
 .employee-section select {
@@ -31,34 +47,16 @@
   border-radius: 4px;
   background-color: #fff;
   outline: none;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
-/* HomePage.css */
-
-/* Scrolling text animation for the select element */
-.scrolling-text {
-  overflow: hidden;
-  white-space: nowrap;
-  animation: marquee 10s linear infinite;
-}
-
-@keyframes marquee {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-
 
 .selected-employee {
   width: 100%;
-  max-width: 600px; /* Adjust as needed */
+  max-width: 600px;
   text-align: left;
-  text-align: left;
- 
-  
 }
 
 .selected-employee h2 {
-  gap:30 ;
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 10px;
@@ -79,7 +77,6 @@
   margin-right: 10px;
 }
 
-/* Styling for checkboxes and radio buttons */
 .form-checkbox,
 .form-radio {
   cursor: pointer;
@@ -98,12 +95,10 @@
   background-color: #000;
 }
 
-/* Custom color for text elements */
 .text-black {
   color: #000;
 }
 
-/* Styling for the special h3 */
 .h3 {
   font-size: 2rem;
   font-weight: bold;
@@ -111,26 +106,27 @@
   background: linear-gradient(to right, #2ebf91, #8360c3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  transition: font-size 0.5s ease-in-out; /* Animation for font size */
+  transition: font-size 0.5s ease-in-out;
 }
 
 .special-heading:hover {
-  font-size: 2.5rem; /* Increase font size on hover */
+  font-size: 2.5rem;
 }
 
 .special-heading {
   font-size: 2rem;
   font-weight: bold;
-  color:  #8360c3; /* Set the desired blue color */
-}
-
-/* Add gradient effect to text */
-.special-heading {
- background: linear-gradient(to left, #2ebf91, #8360c3);
+  color: #8360c3;
+  background: linear-gradient(to left, #2ebf91, #8360c3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+/* Hover effect for employee-section and options-section headings */
+.employee-section h2:hover,
+.options-section h2:hover {
+  color: #28a745; /* Change text color on hover */
+}
 
 
 
