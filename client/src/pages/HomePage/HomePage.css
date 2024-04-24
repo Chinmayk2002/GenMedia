@@ -1,3 +1,131 @@
+.employee-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+.employee-section,
+.options-section {
+  width: 100%;
+  max-width: 600px; /* Adjust as needed */
+  margin-bottom: 20px;
+}
+
+.employee-section h2,
+.options-section h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: left; /* Align heading to the left */
+  color: black; /* Set the color to #2ebf91 */
+}
+
+.employee-section select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  background-color: #fff;
+  outline: none;
+}
+
+.selected-employee {
+  width: 100%;
+  max-width: 600px; /* Adjust as needed */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.selected-employee h2 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.selected-employee p {
+  margin-bottom: 5px;
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.option-label input[type='checkbox'],
+.option-label input[type='radio'] {
+  margin-right: 10px;
+}
+
+/* Styling for checkboxes and radio buttons */
+.form-checkbox,
+.form-radio {
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #000;
+  border-radius: 2px;
+  outline: none;
+}
+
+.form-checkbox:checked,
+.form-radio:checked {
+  background-color: #000;
+}
+
+/* Custom color for text elements */
+.text-black {
+  color: #000;
+}
+
+/* Styling for the special h3 */
+.h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2ebf91;
+  background: linear-gradient(to right, #2ebf91, #8360c3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: font-size 0.5s ease-in-out; /* Animation for font size */
+}
+
+.special-heading:hover {
+  font-size: 2.5rem; /* Increase font size on hover */
+}
+
+.special-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2ebf91; /* Set the desired blue color */
+}
+
+/* Add gradient effect to text */
+.special-heading {
+ background-color: #007bff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .container {
   max-width: 800px;
   margin: 0 auto;

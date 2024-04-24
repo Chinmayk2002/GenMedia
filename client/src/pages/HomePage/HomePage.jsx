@@ -250,142 +250,168 @@ const HomePage = () => {
   //   });
   // };
 
-  return (<div>
-    {/* <Sidebar/> */}
-    <h2 className="text-xl font-semibold mb-4">Select Employee</h2>          
-      <div>
-      <h1>Select Employee</h1>
-      <select className="w-full p-2 border border-black rounded bg-transparent focus:outline-none" onChange={handleEmployeeChange}>
-        <option value="">Select an employee</option>
-        {employeess.map((employeess, index) => (
-          <option key={index} value={index}>
-            {employeess.name}
-          </option>
-        ))}
-      </select>
-      {selectedEmployee && (
+  return (
+    <div className="employee-container">
+      <div className="employee-section">
+        <h3 className="special-heading">
+          Create Memories! Tailored Just for You.
+        </h3>
+
         <div>
-          <h2>Selected Employee</h2>
-          <p>Name: {selectedEmployee.name}</p>
-          <p>Age: {selectedEmployee.age}</p>
-          <p>Favorite Music: {selectedEmployee.favoriteMusic}</p>
+          <h2>Select Employee</h2>
+          <select
+            className="w-full p-2 border border-black rounded bg-transparent focus:outline-none"
+            onChange={handleEmployeeChange}
+          >
+            <option value="">Select an employee</option>
+            {employeess.map((employee, index) => (
+              <option key={index} value={index}>
+                {employee.name}
+              </option>
+            ))}
+          </select>
+          {selectedEmployee && (
+            <div className="selected-employee">
+              <h2>Selected Employee</h2>
+              <p>Name: {selectedEmployee.name}</p>
+              <p>Age: {selectedEmployee.age}</p>
+              <p>Favorite Music: {selectedEmployee.favoriteMusic}</p>
+            </div>
+          )}
         </div>
-      )}
-    </div>
-      <div className="w-full md:w-1/2 mb-4 md:mb-0">
-        {/* Checkbox and Occasion selection */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
-          className="bg-orange-500 text-black p-6 rounded-lg border-2 border-orange-500"
-        > */}
-          <h2 className="text-xl font-semibold mb-4">Select Options</h2>
-          {/* Checkbox selection */}
-          <div className="mb-4">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                checked={selectedOptions.image}
-                onChange={() =>
-                  setSelectedOptions({ ...selectedOptions, image: !selectedOptions.image })
-                }
-                className="form-checkbox text-black focus:ring-black"
-              />
-              <span className="ml-2 text-black">Image</span>
-            </label>
-            {/* Other checkboxes */}
-            <label className="flex items-center mt-2">
-              <input
-                type="checkbox"
-                checked={selectedOptions.audio}
-                onChange={() =>
-                  setSelectedOptions({ ...selectedOptions, audio: !selectedOptions.audio })
-                }
-                className="form-checkbox text-black focus:ring-black"
-              />
-              <span className="ml-2 text-black">Audio</span>
-            </label>
-            <label className="flex items-center mt-2">
-              <input
-                type="checkbox"
-                checked={selectedOptions.video}
-                onChange={() =>
-                  setSelectedOptions({ ...selectedOptions, video: !selectedOptions.video })
-                }
-                className="form-checkbox text-black focus:ring-black"
-              />
-              <span className="ml-2 text-black">Video</span>
-            </label>
-          </div>
-          {/* Occasion selection */}
-          <h2 className="text-xl font-semibold mb-4">Select Occasion</h2>
-          <div className="mb-4">
-            <label className="flex items-center">
-              <input
-                type="radio"
-                value="birthday"
-                checked={selectedOccasion === 'birthday'}
-                onChange={() => setSelectedOccasion('birthday')}
-                className="form-radio text-black focus:ring-black"
-              />
-              <span className="ml-2 text-black">Birthday</span>
-            </label>
-            <label className="flex items-center mt-2">
-              <input
-                type="radio"
-                value="Custom"
-                checked={selectedOccasion === 'Custom'}
-                onChange={() => setSelectedOccasion('Custom')}
-                className="form-radio text-black focus:ring-black"
-              />
-              <span className="ml-2 text-black">Custom</span>
-            </label>
-          </div>
+      </div>
+      <div className="options-section">
+        <h2>Select Options</h2>
+        <div className="mb-4">
+          <label className="option-label">
+            <input
+              type="checkbox"
+              checked={selectedOptions.image}
+              onChange={() =>
+                setSelectedOptions({
+                  ...selectedOptions,
+                  image: !selectedOptions.image,
+                })
+              }
+              className="form-checkbox text-black focus:ring-black"
+            />
+            <span className="text-black">Image</span>
+          </label>
+          <label className="option-label">
+            <input
+              type="checkbox"
+              checked={selectedOptions.audio}
+              onChange={() =>
+                setSelectedOptions({
+                  ...selectedOptions,
+                  audio: !selectedOptions.audio,
+                })
+              }
+              className="form-checkbox text-black focus:ring-black"
+            />
+            <span className="text-black">Audio</span>
+          </label>
+          <label className="option-label">
+            <input
+              type="checkbox"
+              checked={selectedOptions.video}
+              onChange={() =>
+                setSelectedOptions({
+                  ...selectedOptions,
+                  video: !selectedOptions.video,
+                })
+              }
+              className="form-checkbox text-black focus:ring-black"
+            />
+            <span className="text-black">Video</span>
+          </label>
+        </div>
+        <h2>Select Occasion</h2>
+        <div className="mb-4">
+          <label className="option-label">
+            <input
+              type="radio"
+              value="birthday"
+              checked={selectedOccasion === "birthday"}
+              onChange={() => setSelectedOccasion("birthday")}
+              className="form-radio text-black focus:ring-black"
+            />
+            <span className="text-black">Birthday</span>
+          </label>
+          <label className="option-label">
+            <input
+              type="radio"
+              value="Custom"
+              checked={selectedOccasion === "Custom"}
+              onChange={() => setSelectedOccasion("Custom")}
+              className="form-radio text-black focus:ring-black"
+            />
+            <span className="text-black">Custom</span>
+          </label>
+        </div>
+
         {/* </motion.div> */}
       </div>
+<<<<<<< HEAD
+      {selectedOptions.image ? (
+        <div className="container mx-auto p-8">
+          <div className="columns is-vcentered">
+=======
       {(selectedOptions.image && selectedOccasion=="Custom")?(<div className="container mx-auto p-8">
         <div className="columns is-vcentered">
+>>>>>>> 58f6fd5a5d443a7465cac71a37f251bd1ce3dd8e
             <div className="column">
-                
-                    <h1 className="title has-text-centered is-4 text-5xl heading-spacing image-gen-column">ImageGen</h1>
+              <h1 className="title has-text-centered is-4 text-5xl heading-spacing image-gen-column">
+                ImageGen
+              </h1>
 
-                    <div className="field">
-                        {/* <label className="label">Prompt</label> */}
-                        <div className="control">
-                            <input 
-                                type="text" 
-                                placeholder="Enter your prompt to generate the image..." 
-                                value={prompt} 
-                                onChange={(e) =>setPrompt(e.target.value)}
-                                className="textarea w-full input-text "
-                                required
-                            /> 
-                        </div>
-                    </div>         
-                        <ErrorMessage message={errorMessage}/>
-                    <br /> 
-                    <div className="container1">
-                        <button className="generate-button" onClick={fetchData}>Generate Image</button>
-                    </div>
-                
+              <div className="field">
+                {/* <label className="label">Prompt</label> */}
+                <div className="control">
+                  <input
+                    type="text"
+                    placeholder="Enter your prompt to generate the image..."
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    className="textarea w-full input-text "
+                    required
+                  />
+                </div>
+              </div>
+              <ErrorMessage message={errorMessage} />
+              <br />
+              <div className="container1">
+                <button className="generate-button" onClick={fetchData}>
+                  Generate Image
+                </button>
+              </div>
             </div>
             <div className="column">
-            {/* {imageURL &&  <img src={`data:image/jpeg;base64,${imageURL}`} alt="Your Image" />} */}
-            { imageURL ? ( 
-            <figure>
-                {/* <img src={img} alt="genimage" /> */}
-                {imageURL &&  <img src={`data:image/jpeg;base64,${imageURL}`} alt="Your Image" />}
-                <figcaption>{prompt}</figcaption>
-            </figure> ) 
-                  : <></>
-            }
-            { imageURL ? (
-                <progress className="progress is-small is-primary" max="100">Loading</progress>
-            ) : <></>
-            }
+              {/* {imageURL &&  <img src={`data:image/jpeg;base64,${imageURL}`} alt="Your Image" />} */}
+              {imageURL ? (
+                <figure>
+                  {/* <img src={img} alt="genimage" /> */}
+                  {imageURL && (
+                    <img
+                      src={`data:image/jpeg;base64,${imageURL}`}
+                      alt="Your Image"
+                    />
+                  )}
+                  <figcaption>{prompt}</figcaption>
+                </figure>
+              ) : (
+                <></>
+              )}
+              {imageURL ? (
+                <progress className="progress is-small is-primary" max="100">
+                  Loading
+                </progress>
+              ) : (
+                <></>
+              )}
             </div>
+<<<<<<< HEAD
+=======
         </div>
         </div>):(<div></div>)}
       {(selectedOptions.audio && selectedOccasion=="Custom")?(<div className="flex flex-wrap justify-between mx-auto max-w-4xl">
@@ -413,59 +439,101 @@ const HomePage = () => {
             >
               Use This!
             </button>
+>>>>>>> 58f6fd5a5d443a7465cac71a37f251bd1ce3dd8e
           </div>
-        ))}
-      </div>
-
-      <div className="flex-container">
-        <div className="duration-container mt-8">
-          <label className="block mb-2">Duration</label>
-          <input
-            type="range"
-            min={1}
-            max={30}
-            value={duration}
-            onChange={(e) => setDuration(e.target.value)}
-            className="w-full"
-            style={{ height: "10px" }} // Optional inline style for height
-          />
-          <p className="text-center">{`${duration} second${
-            duration > 1 ? "s" : ""
-          }`}</p>
         </div>
-      </div>
+      ) : (
+        <div></div>
+      )}
+      {selectedOptions.audio ? (
+        <div className="flex flex-wrap justify-between mx-auto max-w-4xl">
+          <div className="container mx-auto p-8">
+            <h1 className="text-5xl font-bold mb-2">MusicGen</h1>
 
-      <div className="progress-bar">
-        <div
-          className="progress-bar-inner"
-          style={{ width: `${100 * progress}%` }}
-        ></div>
-      </div>
-      <p>{statusText}</p>
-      <div className="container1">
-        <button className="generate-button" onClick={generateMusic}>
-          Generate Music
-        </button>
-      </div>
-      <div className="audio-player">
-        <audio ref={audioRef} controls />
-        {SHARING_ENABLED && result && (
-          <button
-            className="share-button"
-            onClick={async () => {
-              await share(result, {
-                prompt: textInput,
-                duration,
-                guidanceScale,
-                temperature,
-              });
-            }}
-          >
-            Share
-          </button>
-        )}
+            <input
+              type="text"
+              placeholder="Describe the music to generate..."
+              value={textInput}
+              onChange={(e) => setTextInput(e.target.value)}
+              className="input-text"
+            />
+
+            <div className="flex flex-wrap justify-center gap-4">
+              {EXAMPLES.map((example, i) => (
+                <div
+                  key={i}
+                  className="bg-gradient-to-r from-blue-400 to-blue-700 text-white rounded-md p-4 w-64 transform hover:-translate-y-2 transition-transform duration-300"
+                >
+                  <p className="text-xl font-bold">{example}</p>
+                  <button
+                    onClick={() => setTextInput(example)}
+                    className="bg-white text-blue-700 font-semibold px-4 py-2 mt-4 rounded-md hover:bg-blue-100 transition duration-300"
+                  >
+                    Use This!
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex-container">
+              <div className="duration-container mt-8">
+                <label className="block mb-2">Duration</label>
+                <input
+                  type="range"
+                  min={1}
+                  max={30}
+                  value={duration}
+                  onChange={(e) => setDuration(e.target.value)}
+                  className="w-full"
+                  style={{ height: "10px" }} // Optional inline style for height
+                />
+                <p className="text-center">{`${duration} second${
+                  duration > 1 ? "s" : ""
+                }`}</p>
+              </div>
+            </div>
+
+            <div className="progress-bar">
+              <div
+                className="progress-bar-inner"
+                style={{ width: `${100 * progress}%` }}
+              ></div>
+            </div>
+            <p>{statusText}</p>
+            <div className="container1">
+              <button className="generate-button" onClick={generateMusic}>
+                Generate Music
+              </button>
+            </div>
+            <div className="audio-player">
+              <audio ref={audioRef} controls />
+              {SHARING_ENABLED && result && (
+                <button
+                  className="share-button"
+                  onClick={async () => {
+                    await share(result, {
+                      prompt: textInput,
+                      duration,
+                      guidanceScale,
+                      temperature,
+                    });
+                  }}
+                >
+                  Share
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
+      <div className="container mx-auto p-8">
+        <h1 className="text-5xl font-bold mb-2">Video</h1>
       </div>
     </div>
+<<<<<<< HEAD
+=======
     </div>):(<div></div>)}
     {(selectedOptions.video && selectedOccasion=="Custom")?(<div className="container mx-auto p-8">
       <h1 className="text-5xl font-bold mb-2">Video</h1>
@@ -478,6 +546,7 @@ const HomePage = () => {
         </button>
       </div>):(<div></div>)}
       </div>
+>>>>>>> 58f6fd5a5d443a7465cac71a37f251bd1ce3dd8e
   );
 
 };
