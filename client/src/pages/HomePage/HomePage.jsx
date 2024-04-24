@@ -11,6 +11,9 @@ import GenImage from "./GenImage.jsx";
 import { AuthState } from "../../context/AuthProvider";
 import { Notify } from "../../utils";
 import "./HomePage.css"; // Import CSS file for styling
+import OutputComponent from "./OutputComponent.jsx";
+
+
 
 const MODEL_ID = "Xenova/musicgen-small";
 const EXAMPLES = [
@@ -246,8 +249,9 @@ const HomePage = () => {
         )}
       </div>
 
-      {/* <Img /> */}
+      <Img />
       <GenImage />
+      <OutputComponent />
     </div>
   );
 };
