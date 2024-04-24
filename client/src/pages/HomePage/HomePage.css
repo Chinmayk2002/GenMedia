@@ -21,7 +21,7 @@
   font-weight: bold;
   margin-bottom: 10px;
   text-align: left; /* Align heading to the left */
-  color: black; /* Set the color to #2ebf91 */
+  color: #2ebf91; /* Set the color to #2ebf91 */
 }
 
 .employee-section select {
@@ -31,16 +31,34 @@
   border-radius: 4px;
   background-color: #fff;
   outline: none;
+  margin-bottom: 20px; 
 }
+/* HomePage.css */
+
+/* Scrolling text animation for the select element */
+.scrolling-text {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
 
 .selected-employee {
   width: 100%;
   max-width: 600px; /* Adjust as needed */
-  text-align: center;
-  margin-bottom: 20px;
+  text-align: left;
+  text-align: left;
+ 
+  
 }
 
 .selected-employee h2 {
+  gap:30 ;
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 10px;
@@ -103,12 +121,12 @@
 .special-heading {
   font-size: 2rem;
   font-weight: bold;
-  color: #2ebf91; /* Set the desired blue color */
+  color:  #8360c3; /* Set the desired blue color */
 }
 
 /* Add gradient effect to text */
 .special-heading {
- background-color: #007bff;
+ background: linear-gradient(to left, #2ebf91, #8360c3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
