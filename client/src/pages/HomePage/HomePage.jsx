@@ -329,12 +329,12 @@ const HomePage = () => {
             <label className="flex items-center mt-2">
               <input
                 type="radio"
-                value="anniversary"
-                checked={selectedOccasion === 'anniversary'}
-                onChange={() => setSelectedOccasion('anniversary')}
+                value="Custom"
+                checked={selectedOccasion === 'Custom'}
+                onChange={() => setSelectedOccasion('Custom')}
                 className="form-radio text-black focus:ring-black"
               />
-              <span className="ml-2 text-black">Anniversary</span>
+              <span className="ml-2 text-black">Custom</span>
             </label>
           </div>
         {/* </motion.div> */}
@@ -461,8 +461,9 @@ const HomePage = () => {
       </div>
     </div>
     </div>):(<div></div>)}
-      
-      
+    <div className="container mx-auto p-8">
+      <h1 className="text-5xl font-bold mb-2">Video</h1>
+    </div>
       </div>
   );
 };
