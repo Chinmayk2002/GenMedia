@@ -44,7 +44,18 @@ class CallbackStreamer extends BaseStreamer {
 }
 
 const HomePage = () => {
-  
+  const employeess = [
+    { name: 'John Doe', age: 30, favoriteMusic: 'Pop' },
+    { name: 'Jane Smith', age: 25, favoriteMusic: 'Rock' },
+    { name: 'Michael Johnson', age: 35, favoriteMusic: 'Jazz' }
+  ];
+
+  const handleEmployeeChange = (event) => {
+    const index = event.target.value;
+    setSelectedEmployee(employeess[index]);
+  };
+
+
   const [textInput, setTextInput] = useState();
   const [progress, setProgress] = useState(0);
   const [loadProgress, setLoadProgress] = useState({});
@@ -235,35 +246,26 @@ const HomePage = () => {
 
   return (<div>
     {/* <Sidebar/> */}
-    <h2 className="text-xl font-semibold mb-4">Select Employee</h2>
-          <select
-            value={selectedEmployee}
-            onChange={(e) => handleEmployeeSelect(e.target.value)}
-            className="w-full p-2 border border-black rounded bg-transparent focus:outline-none"
-          >
-            <option value="">Select</option>
-            {employees.map((employee, index) => (
-              <option key={index} value={employee}>
-                {employee}
-              </option>
-            ))}
-          </select>
-          {selectedEmployee && (
-        <div className="w-full md:w-1/2 mb-4 md:mb-0">
-          {/* <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5 }}
-            className="bg-orange-500 text-black p-6 rounded-lg border-2 border-orange-500"
-          > */}
-            <h2 className="text-xl font-semibold mb-4">Employee Information</h2>
-            <p>Name: {employeeInfo.name}</p>
-            <p>Age: {employeeInfo.age}</p>
-            <p>Favorite Music: {employeeInfo.favoriteMusic}</p>
-          {/* </motion.div> */}
+    <h2 className="text-xl font-semibold mb-4">Select Employee</h2>          
+      <div>
+      <h1>Select Employee</h1>
+      <select className="w-full p-2 border border-black rounded bg-transparent focus:outline-none" onChange={handleEmployeeChange}>
+        <option value="">Select an employee</option>
+        {employeess.map((employeess, index) => (
+          <option key={index} value={index}>
+            {employeess.name}
+          </option>
+        ))}
+      </select>
+      {selectedEmployee && (
+        <div>
+          <h2>Selected Employee</h2>
+          <p>Name: {selectedEmployee.name}</p>
+          <p>Age: {selectedEmployee.age}</p>
+          <p>Favorite Music: {selectedEmployee.favoriteMusic}</p>
         </div>
       )}
+    </div>
       <div className="w-full md:w-1/2 mb-4 md:mb-0">
         {/* Checkbox and Occasion selection */}
         {/* <motion.div
