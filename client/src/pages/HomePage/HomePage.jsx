@@ -19,11 +19,11 @@ import "./HomePage.css"; // Import CSS file for styling
 
 const MODEL_ID = "Xenova/musicgen-small";
 const EXAMPLES = [
-  "80s pop track with bassy drums and synth",
-  "90s rock song with loud guitars and heavy drums",
-  "a light and cheerly EDM track, with syncopated drums, aery pads, and strong emotions bpm: 130",
-  "A cheerful country song with acoustic guitars",
-  "lofi slow bpm electro chill with organic samples",
+  "Funky disco groove with groovy basslines and funky guitar riffs",
+  "Ethereal space ambient with atmospheric pads and cosmic textures",
+  "Aggressive trap beat with hard-hitting 808s and sharp hi-hats",
+  "Smooth jazz fusion with intricate saxophone solos and laid-back drums",
+  "Experimental glitch-hop with glitchy beats and warped synths",
 ];
 
 const SHARING_ENABLED = window.location.host.endsWith(".hf.space");
@@ -45,16 +45,22 @@ class CallbackStreamer extends BaseStreamer {
 
 const HomePage = () => {
   const employeess = [
-    { name: 'John Doe', age: 30, favoriteMusic: 'Pop' },
-    { name: 'Jane Smith', age: 25, favoriteMusic: 'Rock' },
-    { name: 'Michael Johnson', age: 35, favoriteMusic: 'Jazz' }
+    { name: 'Elon Musk', age: 30, favoriteMusic: 'A light and cheerly EDM track, with syncopated drums, aery pads, and strong emotions bpm: 130' },
+    { name: 'Barak Obama', age: 45, favoriteMusic: '80s pop track with bassy drums and synth' },
+    { name: 'Justin Bieber', age: 28, favoriteMusic: 'Lofi slow bpm electro chill with organic samples' }
   ];
 
   const handleEmployeeChange = (event) => {
     const index = event.target.value;
     setSelectedEmployee(employeess[index]);
+    setTextInput(employeess[index].favoriteMusic);
+    setPrompt(employeess[index].name+" celebrating birthday");
   };
 
+  const handleMultiTriggers = (e) =>{
+    generateMusic();
+    fetchData();
+  };
 
   const [textInput, setTextInput] = useState();
   const [progress, setProgress] = useState(0);
@@ -234,15 +240,15 @@ const HomePage = () => {
     image: false,
     checkbox: false,
   });
-  const handleEmployeeSelect = (employee) => {
-    setSelectedEmployee(employee);
-    // Hardcoded employee information for demo purposes
-    setEmployeeInfo({
-      name: employee,
-      age: '25',
-      favoriteMusic: 'Rock',
-    });
-  };
+  // const handleEmployeeSelect = (employee) => {
+  //   setSelectedEmployee(employee);
+  //   // Hardcoded employee information for demo purposes
+  //   setEmployeeInfo({
+  //     name: employee,
+  //     age: '25',
+  //     favoriteMusic: 'Rock',
+  //   });
+  // };
 
   return (<div>
     {/* <Sidebar/> */}
@@ -339,7 +345,7 @@ const HomePage = () => {
           </div>
         {/* </motion.div> */}
       </div>
-      {selectedOptions.image?(<div className="container mx-auto p-8">
+      {(selectedOptions.image && selectedOccasion=="Custom")?(<div className="container mx-auto p-8">
         <div className="columns is-vcentered">
             <div className="column">
                 
@@ -382,7 +388,7 @@ const HomePage = () => {
             </div>
         </div>
         </div>):(<div></div>)}
-      {selectedOptions.audio?(<div className="flex flex-wrap justify-between mx-auto max-w-4xl">
+      {(selectedOptions.audio && selectedOccasion=="Custom")?(<div className="flex flex-wrap justify-between mx-auto max-w-4xl">
     <div className="container mx-auto p-8">
       <h1 className="text-5xl font-bold mb-2">MusicGen</h1>
 
@@ -461,11 +467,19 @@ const HomePage = () => {
       </div>
     </div>
     </div>):(<div></div>)}
-    <div className="container mx-auto p-8">
+    {(selectedOptions.video && selectedOccasion=="Custom")?(<div className="container mx-auto p-8">
       <h1 className="text-5xl font-bold mb-2">Video</h1>
-    </div>
+    </div>):(<div></div>)}
+    {(selectedOccasion=="birthday")?(
+    
+    <div className="container1">
+        <button className="generate-button" onClick={generateMusic}>
+          Generate
+        </button>
+      </div>):(<div></div>)}
       </div>
   );
+
 };
 
 export default HomePage;
