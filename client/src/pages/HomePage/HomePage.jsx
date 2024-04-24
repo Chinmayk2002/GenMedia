@@ -471,9 +471,9 @@ const HomePage = () => {
       <h1 className="text-5xl font-bold mb-2">Video</h1>
     </div>):(<div></div>)}
     {(selectedOccasion=="birthday")?(
-    
     <div className="container1">
-        <button className="generate-button" onClick={generateMusic}>
+      
+        <button className="generate-button" onClick={handleMultiTriggers}>
           Generate
         </button>
       </div>):(<div></div>)}
