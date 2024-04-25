@@ -1,10 +1,10 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GenAudio from "./GenAudio.jsx";
 import GenImage from "./GenImage.jsx";
 import { AuthState } from "../../context/AuthProvider";
 import { Notify } from "../../utils";
-import {  useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
   AutoTokenizer,
   MusicgenForConditionalGeneration,
@@ -54,10 +54,14 @@ const HomePage = () => {
     const index = event.target.value;
     setSelectedEmployee(employeess[index]);
     setTextInput(employeess[index].favoriteMusic);
-    setPrompt(employeess[index].name+" celebrating birthday");
+    setPrompt(employeess[index].name + " celebrating birthday");
+    if (selectedOccasion == "Custom") {
+      setTextInput("");
+      setPrompt("");
+    }
   };
 
-  const handleMultiTriggers = (e) =>{
+  const handleMultiTriggers = (e) => {
     generateMusic();
     fetchData();
   };
@@ -158,17 +162,17 @@ const HomePage = () => {
   const [imageURL, setImageURL] = useState('');
   const [prompt, setPrompt] = useState("");
   const fetchData = async () => {
-     try {
-    //   const data = {
-    //     prompt: {prompt},
-    //   };
-      
+    try {
+      //   const data = {
+      //     prompt: {prompt},
+      //   };
+
       const response = await fetch('http://localhost:3001/api/forwardRequest', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({prompt})
+        body: JSON.stringify({ prompt })
       });
 
       const responseData = await response.json();
@@ -178,23 +182,23 @@ const HomePage = () => {
       setError(error);
     }
   };
-    
-    const [seed, setSeed] = useState(42);
-    // const [guidanceScale, setGuidanceScale] = useState(7.5);
-    const [numInfSteps, setNumInfSteps] = useState(10);
-    const [errorMessage, setErrorMessage] = useState("");
-    const [img, setImg] = useState(null);
-    const [promptImg, setPromptImg] = useState(null);
-    const [loadingImg, setLoadingImg] = useState(false);
 
-    const cleanFormData = () => {
-        setPrompt("");
-        setSeed(42);
-        setGuidanceScale(7.5);
-        setNumInfSteps(5);
-        setLoadingImg(false);
-        setErrorMessage("");
-    }
+  const [seed, setSeed] = useState(42);
+  // const [guidanceScale, setGuidanceScale] = useState(7.5);
+  const [numInfSteps, setNumInfSteps] = useState(10);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [img, setImg] = useState(null);
+  const [promptImg, setPromptImg] = useState(null);
+  const [loadingImg, setLoadingImg] = useState(false);
+
+  const cleanFormData = () => {
+    setPrompt("");
+    setSeed(42);
+    setGuidanceScale(7.5);
+    setNumInfSteps(5);
+    setLoadingImg(false);
+    setErrorMessage("");
+  }
   const [privateMessage, setPrivateMessage] = useState("");
   const navigate = useNavigate();
   const { auth } = AuthState();
@@ -224,8 +228,8 @@ const HomePage = () => {
     }
   };
 
-  const employees = ['Elon Musk', 'Barak Obama','Justin Bieber'];
-  
+  const employees = ['Elon Musk', 'Barak Obama', 'Justin Bieber'];
+
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedOccasion, setSelectedOccasion] = useState('');
   const [selectedEmployee, setSelectedEmployee] = useState('');
@@ -254,7 +258,7 @@ const HomePage = () => {
     <div className="employee-container">
       <div className="employee-section">
         <h3 className="special-heading">
-          Create Memories! Tailored Just for You.
+          Create Media! Tailored Just for You.
         </h3>
 
         <div>
@@ -424,6 +428,7 @@ const HomePage = () => {
             />
 
             <div className="flex flex-wrap justify-center gap-4">
+              <h2 className="text-5xl mb-2" >Suggestions :</h2>
               {EXAMPLES.map((example, i) => (
                 <div
                   key={i}
@@ -452,9 +457,8 @@ const HomePage = () => {
                   className="w-full"
                   style={{ height: "10px" }} // Optional inline style for height
                 />
-                <p className="text-center">{`${duration} second${
-                  duration > 1 ? "s" : ""
-                }`}</p>
+                <p className="text-center">{`${duration} second${duration > 1 ? "s" : ""
+                  }`}</p>
               </div>
             </div>
 
@@ -493,9 +497,14 @@ const HomePage = () => {
       ) : (
         <div></div>
       )}
-      <div className="container mx-auto p-8">
-        <h1 className="text-5xl font-bold mb-2">Video</h1>
-      </div>
+      {selectedOptions.video ? (
+        <div className="container mx-auto p-8">
+          <h1 className="text-5xl font-bold mb-2">Video</h1>
+        </div>
+      ) : (
+        <></>
+      )}
+
     </div>
   );
 
