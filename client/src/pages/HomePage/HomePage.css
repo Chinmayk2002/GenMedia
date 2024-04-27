@@ -22,6 +22,12 @@
   }
 }
 
+.containerflex{
+display: flex;
+flex-direction: row;
+gap: 20%;
+}
+
 /* Other styles remain unchanged */
 .employee-section,
 .options-section {

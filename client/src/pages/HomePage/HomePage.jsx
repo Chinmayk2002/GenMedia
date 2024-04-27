@@ -16,7 +16,6 @@ import ErrorMessage from "./ErrorMessage";
 import "./HomePage.css"; // Import CSS file for styling
 // import Sidebar from "../../components/Sidebar/Sidebar.jsx"
 
-
 const MODEL_ID = "Xenova/musicgen-small";
 const EXAMPLES = [
   "Funky disco groove with groovy basslines and funky guitar riffs",
@@ -254,11 +253,30 @@ const HomePage = () => {
   //   });
   // };
 
+  function downloadImage(imageDataUrl) {
+    const link = document.createElement('a');
+    link.href = imageDataUrl;
+    link.download = 'generated_image.jpg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+  function downloadAudio() {
+    const audioBlob = new Blob([result], { type: 'audio/mpeg' });
+    const url = URL.createObjectURL(audioBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'generated_audio.mp3';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   return (
     <div className="employee-container">
       <div className="employee-section">
-        <h3 className="special-heading">
-          Create Media! Tailored Just for You.
+        <h3 className="special-heading p-2 m-2">
+          Create Media Tailored Just For You
         </h3>
 
         <div>
@@ -284,9 +302,10 @@ const HomePage = () => {
           )}
         </div>
       </div>
-      <div className="options-section">
-        <h2>Select Options</h2>
+      <div className="options-section containerflex">
+
         <div className="mb-4">
+          <h2>Select Options</h2>
           <label className="option-label">
             <input
               type="checkbox"
@@ -330,8 +349,9 @@ const HomePage = () => {
             <span className="text-black">Video</span>
           </label>
         </div>
-        <h2>Select Occasion</h2>
+
         <div className="mb-4">
+          <h2>Select Occasion</h2>
           <label className="option-label">
             <input
               type="radio"
@@ -345,12 +365,22 @@ const HomePage = () => {
           <label className="option-label">
             <input
               type="radio"
-              value="Custom"
-              checked={selectedOccasion === "Custom"}
-              onChange={() => setSelectedOccasion("Custom")}
+              value="Anniversary"
+              checked={selectedOccasion === "Anniversary"}
+              onChange={() => setSelectedOccasion("Anniversary")}
               className="form-radio text-black focus:ring-black"
             />
-            <span className="text-black">Custom</span>
+            <span className="text-black">Anniversary</span>
+          </label>
+          <label className="option-label">
+            <input
+              type="radio"
+              value="Achievement"
+              checked={selectedOccasion === "Achievement"}
+              onChange={() => setSelectedOccasion("Achievement")}
+              className="form-radio text-black focus:ring-black"
+            />
+            <span className="text-black">Achievement</span>
           </label>
         </div>
 
@@ -397,6 +427,14 @@ const HomePage = () => {
                     />
                   )}
                   <figcaption>{prompt}</figcaption>
+                  <div className="container2">
+                    <button
+                      className="download-button"
+                      onClick={() => downloadImage(imageURL)}
+                    >
+                      Download Image
+                    </button>
+                  </div>
                 </figure>
               ) : (
                 <></>
@@ -476,20 +514,27 @@ const HomePage = () => {
             </div>
             <div className="audio-player">
               <audio ref={audioRef} controls />
-              {SHARING_ENABLED && result && (
-                <button
-                  className="share-button"
-                  onClick={async () => {
-                    await share(result, {
-                      prompt: textInput,
-                      duration,
-                      guidanceScale,
-                      temperature,
-                    });
-                  }}
-                >
-                  Share
-                </button>
+              {result && (
+                <>
+                  <button className="download-button" onClick={downloadAudio}>
+                    Download Audio
+                  </button>
+                  {SHARING_ENABLED && (
+                    <button
+                      className="share-button"
+                      onClick={async () => {
+                        await share(result, {
+                          prompt: textInput,
+                          duration,
+                          guidanceScale,
+                          temperature,
+                        });
+                      }}
+                    >
+                      Share
+                    </button>
+                  )}
+                </>
               )}
             </div>
           </div>
