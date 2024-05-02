@@ -54,7 +54,7 @@ const HomePage = () => {
     const index = event.target.value;
     setSelectedEmployee(employeess[index]);
     setTextInput(employeess[index].favoriteMusic);
-    setPrompt(employeess[index].name + " celebrating birthday");
+    setPrompt(employeess[index].name + " celebrating " + selectedOccasion);
     if (selectedOccasion == "Custom") {
       setTextInput("");
       setPrompt("");
@@ -284,9 +284,42 @@ const HomePage = () => {
           )}
         </div>
       </div>
-      <div className="options-section">
-        <h2>Select Options</h2>
+      <div className="options-section customflex">
         <div className="mb-4">
+          <h2>Select Occasion</h2>
+          <label className="option-label">
+            <input
+              type="radio"
+              value="birthday"
+              checked={selectedOccasion === "birthday"}
+              onChange={() => setSelectedOccasion("birthday")}
+              className="form-radio text-black focus:ring-black"
+            />
+            <span className="text-black">Birthday</span>
+          </label>
+          <label className="option-label">
+            <input
+              type="radio"
+              value="Anniversary"
+              checked={selectedOccasion === "Anniversary"}
+              onChange={() => setSelectedOccasion("Anniversary")}
+              className="form-radio text-black focus:ring-black"
+            />
+            <span className="text-black">Anniversary</span>
+          </label>
+          <label className="option-label">
+            <input
+              type="radio"
+              value="Achievement"
+              checked={selectedOccasion === "Achievement"}
+              onChange={() => setSelectedOccasion("Achievement")}
+              className="form-radio text-black focus:ring-black"
+            />
+            <span className="text-black">Achievement</span>
+          </label>
+        </div>
+        <div className="mb-4">
+          <h2>Select Options</h2>
           <label className="option-label">
             <input
               type="checkbox"
@@ -328,29 +361,6 @@ const HomePage = () => {
               className="form-checkbox text-black focus:ring-black"
             />
             <span className="text-black">Video</span>
-          </label>
-        </div>
-        <h2>Select Occasion</h2>
-        <div className="mb-4">
-          <label className="option-label">
-            <input
-              type="radio"
-              value="birthday"
-              checked={selectedOccasion === "birthday"}
-              onChange={() => setSelectedOccasion("birthday")}
-              className="form-radio text-black focus:ring-black"
-            />
-            <span className="text-black">Birthday</span>
-          </label>
-          <label className="option-label">
-            <input
-              type="radio"
-              value="Custom"
-              checked={selectedOccasion === "Custom"}
-              onChange={() => setSelectedOccasion("Custom")}
-              className="form-radio text-black focus:ring-black"
-            />
-            <span className="text-black">Custom</span>
           </label>
         </div>
 
@@ -428,7 +438,7 @@ const HomePage = () => {
             />
 
             <div className="flex flex-wrap justify-center gap-4">
-              <h2 className="text-5xl mb-2" >Suggestions :</h2>
+              <h2 className="text-5xl mb-2" >Other music prefereences :</h2>
               {EXAMPLES.map((example, i) => (
                 <div
                   key={i}

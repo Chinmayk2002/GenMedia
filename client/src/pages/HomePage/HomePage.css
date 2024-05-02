@@ -22,6 +22,12 @@
   }
 }
 
+.customflex{
+  display: flex;
+  flex-direction: row;
+  gap: 20%;
+}
+
 /* Other styles remain unchanged */
 .employee-section,
 .options-section {
@@ -106,11 +112,11 @@
   background: linear-gradient(to right, #2ebf91, #8360c3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  transition: font-size 0.5s ease-in-out;
+  
 }
 
 .special-heading:hover {
-  font-size: 2.5rem;
+  /* font-size: 2.5rem; */
 }
 
 .special-heading {
@@ -127,18 +133,6 @@
 .options-section h2:hover {
   color: #28a745; /* Change text color on hover */
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 .container {
   max-width: 800px;
