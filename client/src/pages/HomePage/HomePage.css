@@ -22,10 +22,17 @@
   }
 }
 
+<<<<<<< HEAD
 .customflex{
   display: flex;
   flex-direction: row;
   gap: 20%;
+=======
+.containerflex{
+display: flex;
+flex-direction: row;
+gap: 20%;
+>>>>>>> 04ffee1213b4f75ad42de5da17bc3b3ec961bd28
 }
 
 /* Other styles remain unchanged */
