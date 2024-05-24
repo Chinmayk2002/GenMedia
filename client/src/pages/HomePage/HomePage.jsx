@@ -18,11 +18,11 @@ import "./HomePage.css"; // Import CSS file for styling
 
 const MODEL_ID = "Xenova/musicgen-small";
 const EXAMPLES = [
-  "Funky disco groove with groovy basslines and funky guitar riffs",
-  "Ethereal space ambient with atmospheric pads and cosmic textures",
-  "Aggressive trap beat with hard-hitting 808s and sharp hi-hats",
-  "Smooth jazz fusion with intricate saxophone solos and laid-back drums",
-  "Experimental glitch-hop with glitchy beats and warped synths",
+  // "Funky disco groove with groovy basslines and funky guitar riffs",
+  // "Ethereal space ambient with atmospheric pads and cosmic textures",
+  // "Aggressive trap beat with hard-hitting 808s and sharp hi-hats",
+  // "Smooth jazz fusion with intricate saxophone solos and laid-back drums",
+  // "Experimental glitch-hop with glitchy beats and warped synths",
 ];
 
 const SHARING_ENABLED = window.location.host.endsWith(".hf.space");
@@ -452,8 +452,9 @@ const HomePage = () => {
       )}
       {selectedOptions.audio ? (
         <div className="flex flex-wrap justify-between mx-auto max-w-4xl">
+          <h1 className="text-5xl font-bold mb-2 my-5">MusicGen</h1>
           <div className="container mx-auto p-8">
-            <h1 className="text-5xl font-bold mb-2">MusicGen</h1>
+
 
             <input
               type="text"
@@ -464,7 +465,7 @@ const HomePage = () => {
             />
 
             <div className="flex flex-wrap justify-center gap-4">
-              <h2 className="text-5xl mb-2" >Other music prefereences :</h2>
+              <h2 className="text-5xl mb-2 dph" >Employee music prefereence :</h2>
               {EXAMPLES.map((example, i) => (
                 <div
                   key={i}
