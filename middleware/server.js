@@ -12,7 +12,7 @@ app.post("/api/forwardRequest", async (req, res) => {
   try {
     // Forward the request to the external endpoint
     const response = await axios.post(
-      "https://597d963f2f0b185743.gradio.live/sdapi/v1/txt2img",
+      "http://127.0.0.1:7860/sdapi/v1/txt2img",
       req.body
     );
     res.json(response.data);

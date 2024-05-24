@@ -64,7 +64,9 @@ const HomePage = () => {
     generateMusic();
     fetchData();
   };
-
+  const [image, setImage] = useState(null);
+  const [audio, setAudio] = useState(null);
+  const [dispurl, setDispurl] = useState('');
   const [textInput, setTextInput] = useState();
   const [progress, setProgress] = useState(0);
   const [loadProgress, setLoadProgress] = useState({});
@@ -117,6 +119,128 @@ const HomePage = () => {
     );
   }, [loadProgress]);
 
+  // const generateVideo = async (image, audio) => {
+  //   const formData = new FormData();
+  //   formData.append('image', image);
+  //   formData.append('audio', audio);
+
+  //   try {
+  //     const response = await fetch('http://localhost:3002/upload', {
+  //       method: 'POST',
+  //       body: formData,
+  //     });
+  //     console.log(response);
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       return data.videoUrl;
+  //     } else {
+  //       const errorText = await response.text();
+  //       console.error('Failed to create video:', errorText);
+  //       return null;
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //     return null;
+  //   }
+  // };
+
+  const generateVideo = async (image, audio) => {
+    const formData = new FormData();
+    formData.append('image', image);
+    formData.append('audio', audio);
+
+    try {
+      const response = await fetch('http://localhost:3002/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const videoBlob = await response.blob();
+        return videoBlob;
+      } else {
+        const errorText = await response.text();
+        console.error('Failed to create video:', errorText);
+        return null;
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return null;
+    }
+  };
+
+
+  const handleDownload = () => {
+    if (!dispurl) {
+      alert('No video available for download.');
+      return;
+    }
+    const link = document.createElement('a');
+    link.href = dispurl;
+    link.download = 'generated_video.mp4';
+    link.click();
+  };
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const handleAudioChange = (e) => {
+    setAudio(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!image || !audio) {
+      alert('Please provide both image and audio files.');
+      return;
+    }
+
+    const videoUrl = await generateVideo(image, audio);
+    if (videoUrl) {
+      const url = URL.createObjectURL(videoUrl);
+      setDispurl(url);
+    } else {
+      alert('Failed to create video.');
+    }
+  };
+
+
+  // async function generateVideo() {
+  //   const audioBlob = new Blob([result], { type: 'audio/mpeg' });
+  //   const url = URL.createObjectURL(audioBlob);
+  //   const imageUrl = imageURL;
+  //   const audioUrl = url;
+
+  //   if (!imageUrl || !audioUrl) {
+  //     alert('Please provide both image and audio URLs.');
+  //     return;
+  //   }
+
+  //   try {
+  //     const response = await fetch('http://localhost:3002/upload', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({ imageUrl, audioUrl })
+  //     });
+
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       const videoUrl = data.videoUrl;
+  //       const resultDiv = document.getElementById('result');
+  //       resultDiv.innerHTML = `<video controls src="${videoUrl}"></video>`;
+  //     } else {
+  //       const errorText = await response.text();
+  //       alert(`Failed to create video: ${errorText}`);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //     alert('An error occurred while creating the video.');
+  //   }
+  // }
+
   const generateMusic = async () => {
     audioRef.current.src = "";
     setResult(null);
@@ -162,9 +286,7 @@ const HomePage = () => {
   const [prompt, setPrompt] = useState("");
   const fetchData = async () => {
     try {
-      //   const data = {
-      //     prompt: {prompt},
-      //   };
+
 
       const response = await fetch('http://localhost:3001/api/forwardRequest', {
         method: 'POST',
@@ -176,6 +298,7 @@ const HomePage = () => {
 
       const responseData = await response.json();
       setResponse(responseData);
+      console.log(response);
       setImageURL(responseData.images);
     } catch (error) {
       setError(error);
@@ -243,24 +366,83 @@ const HomePage = () => {
     image: false,
     checkbox: false,
   });
-  // const handleEmployeeSelect = (employee) => {
-  //   setSelectedEmployee(employee);
-  //   // Hardcoded employee information for demo purposes
-  //   setEmployeeInfo({
-  //     name: employee,
-  //     age: '25',
-  //     favoriteMusic: 'Rock',
-  //   });
-  // };
 
-  function downloadImage(imageDataUrl) {
-    const link = document.createElement('a');
-    link.href = imageDataUrl;
-    link.download = 'generated_image.jpg';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+
+  // function downloadImage(imageDataUrl) {
+  //   // Check if imageDataUrl is an array and has at least one element
+  //   if (Array.isArray(imageDataUrl) && imageDataUrl.length > 0) {
+  //     // Extract the URL string from the array
+  //     imageDataUrl = imageDataUrl[0];
+  //   }
+
+  //   // Check if imageDataUrl is a string and starts with 'data:image/'
+  //   if (typeof imageDataUrl === 'string' && imageDataUrl.startsWith('data:image/')) {
+  //     // Create a link and trigger the download
+  //     const link = document.createElement('a');
+  //     link.href = imageDataUrl;
+  //     link.download = 'generated_image.jpg';
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+  //   } else {
+  //     console.error('Invalid image data URL:', imageDataUrl);
+  //   }
+  // }
+
+  // function downloadImage(base64Url) {
+  //   // create an "a" element
+  //   const link = document.createElement('a');
+
+  //   // set the href to the base64 data of the image
+  //   link.href = base64Url;
+
+  //   // set the download attribute, this will be the filename
+  //   link.download = "Generated_Image.png";
+
+  //   // simulate a click on the "a" element
+  //   link.click();
+
+  //   // clean up by removing the "a" element from the document
+  //   document.body.removeChild(link);
+  // }
+
+
+
+  function downloadImage(elementId) {
+    // Get the image element by its ID
+    const imageElement = document.getElementById(elementId);
+
+    // Check if the element exists and is an image
+    if (imageElement && imageElement.tagName.toLowerCase() === 'img') {
+      // Create a canvas element
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+
+      // Set the canvas dimensions to match the image
+      canvas.width = imageElement.width;
+      canvas.height = imageElement.height;
+
+      // Draw the image onto the canvas
+      context.drawImage(imageElement, 0, 0);
+
+      // Convert the canvas content to a data URL
+      const imageDataUrl = canvas.toDataURL('image/jpeg');
+
+      // Create a link element to trigger the download
+      const link = document.createElement('a');
+      link.href = imageDataUrl;
+      link.download = 'saved_image.jpg';
+
+      // Click the link to download the image
+      link.click();
+    } else {
+      console.error('Invalid image element or ID:', elementId);
+    }
   }
+
+
+
+
   function downloadAudio() {
     const audioBlob = new Blob([result], { type: 'audio/mpeg' });
     const url = URL.createObjectURL(audioBlob);
@@ -406,34 +588,37 @@ const HomePage = () => {
                 </div>
               </div>
               <ErrorMessage message={errorMessage} />
-              <br />
+
               <div className="container1">
-                <button className="generate-button" onClick={fetchData}>
+                <button className="generate-button mb-5" onClick={fetchData}>
                   Generate Image
                 </button>
               </div>
             </div>
             <div className="column">
               {/* {imageURL &&  <img src={`data:image/jpeg;base64,${imageURL}`} alt="Your Image" />} */}
-              {imageURL ? (
-                <figure>
+              {imageURL ? (<>
+
+                <figure className="w-100 border object-fit-fill border-primary">
                   {/* <img src={img} alt="genimage" /> */}
                   {imageURL && (
-                    <img
-                      src={`data:image/jpeg;base64,${imageURL}`}
+                    <img className="w-100"
+                      id="imagedwl" src={`data:image/jpeg;base64,${imageURL}`}
                       alt="Your Image"
                     />
                   )}
-                  <figcaption>{prompt}</figcaption>
-                  <div className="container2">
-                    <button
-                      className="download-button"
-                      onClick={() => downloadImage(imageURL)}
-                    >
-                      Download Image
-                    </button>
-                  </div>
+                  {/* <figcaption>{prompt}</figcaption> */}
                 </figure>
+                <div className="container1">
+                  <button
+                    className="generate-button mt-2"
+                    onClick={() => downloadImage("imagedwl")}
+                  >
+                    Download Image
+                  </button>
+                </div>
+              </>
+
               ) : (
                 <></>
               )}
@@ -445,6 +630,7 @@ const HomePage = () => {
                 <></>
               )}
             </div>
+
           </div>
         </div>
       ) : (
@@ -464,8 +650,29 @@ const HomePage = () => {
               className="input-text"
             />
 
-            <div className="flex flex-wrap justify-center gap-4">
-              <h2 className="text-5xl mb-2 dph" >Employee music prefereence :</h2>
+            <div className="flex flex-wrap justify-center gap-4 w-100">
+              <h2 className="text-5xl dph" >‎
+                ‎ ‎ ‎ ‎‎
+                ‎ ‎ ‎ ‎
+                ‎
+                ‎ ‎ ‎ ‎
+                ‎
+                ‎ ‎ ‎ ‎
+                ‎
+                ‎ ‎ ‎ ‎
+                ‎
+                ‎ ‎ ‎ ‎
+                ‎
+                ‎ ‎ ‎ ‎
+                ‎
+                ‎ ‎ ‎ ‎
+                ‎
+                ‎ ‎ ‎ ‎
+                ‎
+                ‎ ‎ ‎ ‎
+                ‎
+
+              </h2>
               {EXAMPLES.map((example, i) => (
                 <div
                   key={i}
@@ -515,7 +722,7 @@ const HomePage = () => {
               <audio ref={audioRef} controls />
               {result && (
                 <>
-                  <button className="download-button" onClick={downloadAudio}>
+                  <button className="generate-button" onClick={downloadAudio}>
                     Download Audio
                   </button>
                   {SHARING_ENABLED && (
@@ -543,7 +750,31 @@ const HomePage = () => {
       )}
       {selectedOptions.video ? (
         <div className="container mx-auto p-8">
-          <h1 className="text-5xl font-bold mb-2">Video</h1>
+          <h1 className="text-5xl font-bold mb-2">VideoGen</h1>
+          {/* <div className="container1">
+            <button className="generate-button" onClick={generateVideo}>
+              Generate Video
+            </button>
+          </div>
+          <div id="result"></div> */}
+          <div className="container">
+            <form className="p-2" onSubmit={handleSubmit}>
+              <div className="form-group m-3">
+                <label htmlFor="imageInput">Image File:</label>
+                <input type="file" id="imageInput" className="form-control" onChange={handleImageChange} />
+              </div>
+              <div className="form-group m-3">
+                <label htmlFor="audioInput">Audio File:</label>
+                <input type="file" id="audioInput" className="form-control" onChange={handleAudioChange} />
+              </div>
+              <button type="submit" className="generate-button mt-4">Generate Video</button>
+            </form>
+            <div id="result" className="mt-4">
+              {dispurl && <video controls src={dispurl}></video>}
+            </div>
+            <button type="button" className="generate-button" onClick={handleDownload}>Download Video</button>
+          </div>
+
         </div>
       ) : (
         <></>

@@ -86,7 +86,7 @@ const LoginPage = () => {
         />
       </Form.Group>
 
-      <Form.Group className="mb-3 mt-1 text-center" controlId="register">
+      {/* <Form.Group className="mb-3 mt-1 text-center" controlId="register">
         <Link
           to="/forgotPassword"
           tabIndex="4"
@@ -94,34 +94,23 @@ const LoginPage = () => {
         >
           Forgot password?
         </Link>
-      </Form.Group>
+      </Form.Group> */}
 
       <Button
         variant="success"
         type="submit"
         tabIndex="3"
-        className="mb-3"
+        className="mb-3 my-4"
         disabled={isLoading}
       >
         {isLoading ? (
           <Spinner animation="border" role="status" size="sm" />
         ) : (
-          "Continue"
+          "Login"
         )}
       </Button>
 
-      <Button
-        variant="danger"
-        type="button"
-        tabIndex="4"
-        className="mb-3"
-        onClick={() =>
-          setCredentials({ email: "guest@example.com", password: "12345678" })
-        }
-      >
-        <FaUserAlt className="me-2" />
-        Get Guest User Credentials
-      </Button>
+
 
       <Form.Group className="mb-3 text-center" controlId="register">
         <span>
