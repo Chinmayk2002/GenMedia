@@ -14,6 +14,6 @@ cd middleware
 
 node server.js -t3
 
-run gradio
+run a1111
 
-replace api endpoint in middleware server.js
+run video handler

@@ -1,5 +1,5 @@
 {
-  "name": "mern-stack-authentication-boilerplate",
+  "name": "genmedia",
   "version": "1.0.0",
   "description": "Ultimate MERN Stack Authentication Boilerplate for production use",
   "main": "server.js",
@@ -8,17 +8,6 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rtewari056/mern-stack-authentication-boilerplate.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rtewari056/mern-stack-authentication-boilerplate/issues"
-  },
-  "homepage": "https://github.com/rtewari056/mern-stack-authentication-boilerplate#readme",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "bcryptjs": "^2.4.3",
